@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملزمة التفاعلية - الأستاذ سالم يونس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #38bdf8;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(135deg, #4c1d95, #1e1b4b);
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        header .badge {
+            background: var(--accent-blue);
+            color: #000;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        header h1 {
+            font-size: 1.9rem;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: 900;
+        }
+
+        header .teacher-name {
+            color: var(--accent-purple);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: rgba(139, 92, 246, 0.15);
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--accent-purple);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Navigation Bar (Tabs) */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-purple);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Content Sections */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Vocabulary Cards Grid */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .vocab-card {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+            transition: transform 0.2s;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-purple);
+        }
+
+        .vocab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            direction: ltr;
+        }
+
+        .vocab-en {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .vocab-ar {
+            color: var(--accent-blue);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .audio-btn {
+            background: rgba(56, 189, 248, 0.15);
+            border: none;
+            color: var(--accent-blue);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .audio-btn:hover {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        /* Grammar Boxes */
+        .grammar-rule {
+            background: #0f172a;
+            border-right: 4px solid var(--accent-purple);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .grammar-rule h4 {
+            color: var(--accent-purple);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .grammar-rule p, .grammar-rule ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .grammar-rule ul {
+            padding-right: 20px;
+            margin-top: 8px;
+        }
+
+        .example-box {
+            background: rgba(139, 92, 246, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            direction: ltr;
+            text-align: left;
+            font-family: monospace;
+            color: #ddd;
+        }
+
+        /* Quiz Styling */
+        .quiz-question {
+            background: #0f172a;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-question p {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            direction: ltr;
+            text-align: left;
+            color: #fff;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            direction: ltr;
+        }
+
+        .option-label {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            color: var(--text-muted);
+        }
+
+        .option-label:hover {
+            background: var(--bg-card-hover);
+            color: #fff;
+        }
+
+        .option-label input {
+            accent-color: var(--accent-purple);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent-purple), #6d28d9);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .submit-btn:hover {
+            opacity: 0.95;
+        }
+
+        .result-card {
+            display: none;
+            background: #0f172a;
+            border: 2px solid var(--accent-purple);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .result-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-blue);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge">📚 المنهج العراقي المطور</span>
+        <h1>دليل الطالب الذكي — الرابع الإعدادي</h1>
+        <div class="teacher-name">إعداد الأستاذ: سالم يونس</div>
+        <p>ملزمة تفاعلية متكاملة تجمع بين القواعد والمفردات واختبارات التقييم الذاتي</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'vocab')">📖 المفردات (Vocabulary)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'grammar')">⚡ القواعد (Grammar)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'quiz')">📝 الاختبار التفاعلي (Quiz)</button>
+    </div>
+
+    <!-- TAB 1: VOCABULARY -->
+    <div id="vocab" class="tab-content active">
+        <div class="section-card">
+            <h2 class="section-title">Unit 1 - Lesson 1: Learning Languages (مفردات الدرس الأول)</h2>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Interpreter</span>
+                        <button class="audio-btn" onclick="speak('Interpreter')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">مترجم شفهي (يقوم بالترجمة الفورية)</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Self-access centre</span>
+                        <button class="audio-btn" onclick="speak('Self-access centre')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">مركز التعلم الذاتي (غرفة مجهزة للتعلم)</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Learning diary</span>
+                        <button class="audio-btn" onclick="speak('Learning diary')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">مذكرة التعلم (دفتر يكتب فيه الطالب ما تعلمه)</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Flashcards</span>
+                        <button class="audio-btn" onclick="speak('Flashcards')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">بطاقات استذكار تعليمية</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Language index</span>
+                        <button class="audio-btn" onclick="speak('Language index')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">فهرس أو دليل اللغة</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Borrow</span>
+                        <button class="audio-btn" onclick="speak('Borrow')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">يستعير / يستقرض</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: GRAMMAR -->
+    <div id="grammar" class="tab-content">
+        <div class="section-card">
+            <h2 class="section-title">1. Present Simple vs Present Continuous (المضارع البسيط والمستمر)</h2>
+            
+            <div class="grammar-rule">
+                <h4>أولاً: المضارع البسيط (Present Simple)</h4>
+                <p>يستخدم للحديث عن الحقائق الثابتة، العادات، والروتين اليومي.</p>
+                <ul>
+                    <li><b>القاعدة:</b> Subject + Verb (+s if He/She/It)</li>
+                    <li><b>الظروف الدالة:</b> always, usually, often, sometimes, every day</li>
+                </ul>
+                <div class="example-box">
+                    Example: He <b>works</b> in a hospital. / An interpreter <b>translates</b> spoken words.
+                </div>
+            </div>
+
+            <div class="grammar-rule">
+                <h4>ثانياً: المضارع المستمر (Present Continuous)</h4>
+                <p>يستخدم للحديث عن أحداث تقع الآن في لحظة الكلام، أو مواقف مؤقتة.</p>
+                <ul>
+                    <li><b>القاعدة:</b> Subject + (am / is / are) + Verb-ing</li>
+                    <li><b>الظروف الدالة:</b> now, at the moment, currently, Today, Look!</li>
+                </ul>
+                <div class="example-box">
+                    Example: She <b>is studying</b> for her exam right now.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title">2. Indirect Questions (الأسئلة غير المباشرة)</h2>
+            <div class="grammar-rule">
+                <p>تستخدم لتقديم الطلب أو السؤال بأسلوب أكثر أدباً واحتراماً.</p>
+                <ul>
+                    <li><b>البداية الثابتة:</b> Could you tell me...?</li>
+                    <li><b>القاعدة مع أسئلة W-Questions:</b> Could you tell me + W-Word + Subject + Verb...?</li>
+                    <li><b>القاعدة مع أسئلة Yes/No:</b> Could you tell me + if + Subject + Verb...?</li>
+                </ul>
+                <div class="example-box">
+                    Direct: Where is the self-access centre?<br>
+                    <b>Indirect:</b> Could you tell me <u>where the self-access centre is</u>?
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: QUIZ -->
+    <div id="quiz" class="tab-content">
+        <div class="section-card">
+            <h2 class="section-title">اختبار شامل للوحدة الأولى (10 أسئلة)</h2>
+            <form id="quizForm">
+                
+                <div class="quiz-question">
+                    <p>1. Look! The teacher ________ on the board right now.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q1" value="a"> writes</label>
+                        <label class="option-label"><input type="radio" name="q1" value="b"> is writing</label>
+                        <label class="option-label"><input type="radio" name="q1" value="c"> wrote</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>2. An interpreter ________ spoken words from one language to another.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q2" value="a"> translates</label>
+                        <label class="option-label"><input type="radio" name="q2" value="b"> is translating</label>
+                        <label class="option-label"><input type="radio" name="q2" value="c"> translate</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>3. Could you tell me where ________ ?</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q3" value="a"> is the library</label>
+                        <label class="option-label"><input type="radio" name="q3" value="b"> the library is</label>
+                        <label class="option-label"><input type="radio" name="q3" value="c"> the library was</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>4. You can practice listening in the ________ centre.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q4" value="a"> self-access</label>
+                        <label class="option-label"><input type="radio" name="q4" value="b"> flashcards</label>
+                        <label class="option-label"><input type="radio" name="q4" value="c"> diary</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>5. How many languages ________ she speak?</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q5" value="a"> is</label>
+                        <label class="option-label"><input type="radio" name="q5" value="b"> does</label>
+                        <label class="option-label"><input type="radio" name="q5" value="c"> do</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>6. I usually ________ to school on foot, but today I am taking the bus.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q6" value="a"> go</label>
+                        <label class="option-label"><input type="radio" name="q6" value="b"> am going</label>
+                        <label class="option-label"><input type="radio" name="q6" value="c"> went</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>7. A ________ diary helps you record your learning progress.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q7" value="a"> learning</label>
+                        <label class="option-label"><input type="radio" name="q7" value="b"> shopping</label>
+                        <label class="option-label"><input type="radio" name="q7" value="c"> secret</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>8. Could you tell me ________ you have a self-access centre?</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q8" value="a"> if</label>
+                        <label class="option-label"><input type="radio" name="q8" value="b"> that</label>
+                        <label class="option-label"><input type="radio" name="q8" value="c"> what</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>9. They ________ English at the moment.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q9" value="a"> study</label>
+                        <label class="option-label"><input type="radio" name="q9" value="b"> are studying</label>
+                        <label class="option-label"><input type="radio" name="q9" value="c"> studies</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>10. You can ________ books from the school library.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q10" value="a"> borrow</label>
+                        <label class="option-label"><input type="radio" name="q10" value="b"> lend</label>
+                        <label class="option-label"><input type="radio" name="q10" value="c"> sell</label>
+                    </div>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="calculateScore()">إنهاء الاختبار وعرض النتيجة</button>
+            </form>
+
+            <div id="resultCard" class="result-card">
+                <h3>نتيجة الاختبار</h3>
+                <div class="score-display" id="scoreValue">0/10</div>
+                <p id="scoreFeedback" style="color: var(--text-muted); font-size: 1.1rem;"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab Switcher
+    function switchTab(evt, tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    // Improved Text to Speech Engine (Selects Natural English Voices)
+    let synth = window.speechSynthesis;
+    let voices = [];
+
+    function populateVoices() {
+        voices = synth.getVoices().filter(voice => voice.lang.includes('en'));
+    }
+
+    populateVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoices;
+    }
+
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            synth.cancel(); // Stop any previous playback
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            // Try to find Google or Natural high quality English voice
+            let selectedVoice = voices.find(v => v.name.includes('Google') || v.name.includes('Natural')) || voices[0];
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85; // Slightly slower for clarity
+            utterance.pitch = 1.0;
+
+            synth.speak(utterance);
+        } else {
+            alert('خاصية النطق غير مدعومة في متصفحك.');
+        }
+    }
+
+    // Quiz Score Calculation
+    function calculateScore() {
+        const answers = {
+            q1: 'b', q2: 'a', q3: 'b', q4: 'a', q5: 'b',
+            q6: 'a', q7: 'a', q8: 'a', q9: 'b', q10: 'a'
+        };
+
+        let score = 0;
+        const total = 10;
+        const form = document.forms['quizForm'];
+
+        for (let i = 1; i <= total; i++) {
+            const qValue = form['q' + i].value;
+            if (qValue === answers['q' + i]) {
+                score++;
+            }
+        }
+
+        const resultCard = document.getElementById('resultCard');
+        const scoreValue = document.getElementById('scoreValue');
+        const scoreFeedback = document.getElementById('scoreFeedback');
+
+        resultCard.style.display = 'block';
+        scoreValue.innerText = `${score} / ${total}`;
+
+        if (score === 10) {
+            scoreFeedback.innerText = 'ممتاز جداً! إجاباتك كاملة وصحيحة 100% 🎯';
+            scoreFeedback.style.color = 'var(--accent-green)';
+        } else if (score >= 7) {
+            scoreFeedback.innerText = 'أداء جيد جداً! يمكنك مراجعة القواعد القليلة المتبقية 👍';
+            scoreFeedback.style.color = 'var(--accent-blue)';
+        } else {
+            scoreFeedback.innerText = 'يحتاج إلى مراجعة. أعد قراءة قسم القواعد والمفردات ثم حاول مجدداً! 💡';
+            scoreFeedback.style.color = 'var(--accent-red)';
+        }
+
+        resultCard.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
