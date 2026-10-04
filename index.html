@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملزمة التفاعلية - الأستاذ سالم يونس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #38bdf8;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(135deg, #4c1d95, #1e1b4b);
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        header .badge {
+            background: var(--accent-blue);
+            color: #000;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        header h1 {
+            font-size: 1.9rem;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: 900;
+        }
+
+        header .teacher-name {
+            color: var(--accent-purple);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: rgba(139, 92, 246, 0.15);
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--accent-purple);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Navigation Bar (Tabs) */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-purple);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Content Sections */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Detailed Grammar Rules */
+        .grammar-block {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grammar-block h3 {
+            color: var(--accent-yellow);
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .grammar-block h4 {
+            color: var(--accent-blue);
+            margin: 15px 0 8px 0;
+            font-size: 1.05rem;
+        }
+
+        .grammar-block p {
+            color: var(--text-main);
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background: rgba(56, 189, 248, 0.1);
+            border-right: 4px solid var(--accent-blue);
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 12px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .formula-box {
+            background: #1e1b4b;
+            border: 1px dashed var(--accent-purple);
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+            direction: ltr;
+        }
+
+        .example-item {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .example-en {
+            direction: ltr;
+            text-align: left;
+            font-weight: 700;
+            color: var(--accent-green);
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .example-ar {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .tip-box {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid var(--accent-yellow);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            color: #fef08a;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* Vocabulary Cards Grid */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .vocab-card {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+            transition: transform 0.2s;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-purple);
+        }
+
+        .vocab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            direction: ltr;
+        }
+
+        .vocab-en {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .vocab-ar {
+            color: var(--accent-blue);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .audio-btn {
+            background: rgba(56, 189, 248, 0.15);
+            border: none;
+            color: var(--accent-blue);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .audio-btn:hover {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        /* Quiz Styling */
+        .quiz-question {
+            background: #0f172a;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-question p {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            direction: ltr;
+            text-align: left;
+            color: #fff;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            direction: ltr;
+        }
+
+        .option-label {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            color: var(--text-muted);
+        }
+
+        .option-label:hover {
+            background: var(--bg-card-hover);
+            color: #fff;
+        }
+
+        .option-label input {
+            accent-color: var(--accent-purple);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent-purple), #6d28d9);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .submit-btn:hover {
+            opacity: 0.95;
+        }
+
+        .result-card {
+            display: none;
+            background: #0f172a;
+            border: 2px solid var(--accent-purple);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .result-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-blue);
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge">📚 المنهج العراقي المطور</span>
+        <h1>دليل الطالب الذكي — الرابع الإعدادي</h1>
+        <div class="teacher-name">إعداد الأستاذ: سالم يونس</div>
+        <p>ملزمة تفاعلية متكاملة تجمع بين الشرح المبسط للمفردات والقواعد والاختبارات الذكية</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'grammar')">⚡ شرح القواعد (Grammar)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'vocab')">📖 المفردات (Vocabulary)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'quiz')">📝 الاختيارات والاختبار (Quiz)</button>
+    </div>
+
+    <!-- TAB 1: DETAILED GRAMMAR -->
+    <div id="grammar" class="tab-content active">
+        
+        <!-- RULE 1 -->
+        <div class="grammar-block">
+            <h3>1. زمن المضارع البسيط (Present Simple)</h3>
+            <p><b>متى نستخدم هذا الزمن؟</b> نستخدمه للحديث عن الأشياء الثابتة في حياتنا، أو العادات والتكرار اليومي، أو الحقائق العامة التي لا تتغير.</p>
+            
+            <div class="highlight-box">
+                <b>💡 فكرة مبسطة:</b> إذا كان العمل تكرره دائماً (مثل الذهاب للمدرسة، أكل الوجبات، أو عمل ثابت)، نستخدم المضارع البسيط!
+            </div>
+
+            <h4>صيغة القاعدة (Form):</h4>
+            <div class="formula-box">
+                Subject (الفاعل) + Verb (الفعل الرئيسي)
+            </div>
+
+            <p><b>تنبيه مهم جداً للفاعل:</b></p>
+            <ul>
+                <li>إذا كان الفاعل مفرد <b>(He / She / It)</b> أو اسم مفرد: نضع للفعل حرف <b>(s)</b> يسمى أس الشخص الثالث.</li>
+                <li>إذا كان الفاعل جمع أو متكلم <b>(I / They / We / You)</b>: يبقى الفعل **مجرد بدون أي إضافة**.</li>
+            </ul>
+
+            <h4>الكلمات الدالة (الظروف التي تأتي مع هذا الزمن):</h4>
+            <p><span style="color:var(--accent-blue)">always</span> (دائماً)، <span style="color:var(--accent-blue)">usually</span> (عادةً)، <span style="color:var(--accent-blue)">often</span> (غالباً)، <span style="color:var(--accent-blue)">sometimes</span> (أحياناً)، <span style="color:var(--accent-blue)">every day / week</span> (كل يوم / أسبوع).</p>
+
+            <h4>أمثلة محلولة ومترجمة:</h4>
+            <div class="example-item">
+                <div class="example-en">
+                    <span>1. An interpreter <b>translates</b> spoken words.</span>
+                    <button class="audio-btn" onclick="speak('An interpreter translates spoken words.')">🔊 استمع</button>
+                </div>
+                <div class="example-ar">المترجم الشفهي يترجم الكلمات المنطوقة. (حقيقة وعمل ثابت لذلك أضفنا s للفعل)</div>
+            </div>
+
+            <div class="example-item">
+                <div class="example-en">
+                    <span>2. They <b>go</b> to school every morning.</span>
+                    <button class="audio-btn" onclick="speak('They go to school every morning.')">🔊 استمع</button>
+                </div>
+                <div class="example-ar">هم يذهبون إلى المدرسة كل صباح. (عادة وتكرار، والفاعل They جمع لذلك الفعل go مجرد)</div>
+            </div>
+
+            <div class="tip-box">
+                <b>📌 ملاحظة الامتحان:</b> إذا وجدتم في الامتحان كلمة (every) أو (always/usually)، اختاروا الفعل الذي يحتوي على (s) إذا كان الفاعل مفرد، أو الفعل المجرد إذا كان الفاعل جمع!
+            </div>
+        </div>
+
+        <!-- RULE 2 -->
+        <div class="grammar-block">
+            <h3>2. زمن المضارع المستمر (Present Continuous)</h3>
+            <p><b>متى نستخدم هذا الزمن؟</b> نستخدمه للحديث عن شيء يحدث **الآن في هذه اللحظة بالذات** أثناء الكلام، أو شيء مؤقت نشغل به حالياً.</p>
+
+            <div class="highlight-box">
+                <b>💡 فكرة مبسطة:</b> أي حدث مستمر وشغال حالياً وأنت تشاهده أو تفعله في هذه اللحظة، يتطلب مضارع مستمر!
+            </div>
+
+            <h4>صيغة القاعدة (Form):</h4>
+            <div class="formula-box">
+                Subject + (am / is / are) + Verb (-ing)
+            </div>
+
+            <p><b>تقسيم الأفعال المساعدة:</b></p>
+            <ul>
+                <li><b>I</b> 👈 نأخذ معها <b>am</b></li>
+                <li><b>He / She / It</b> (المفرد) 👈 نأخذ معها <b>is</b></li>
+                <li><b>They / We / You</b> (الجمع) 👈 نأخذ معها <b>are</b></li>
+            </ul>
+
+            <h4>الكلمات الدالة (مفاتيح الحل بالامتحان):</h4>
+            <p><span style="color:var(--accent-green)">now</span> (الآن)، <span style="color:var(--accent-green)">at the moment</span> (في هذه اللحظة)، <span style="color:var(--accent-green)">Today</span> (اليوم)، <span style="color:var(--accent-green)">Look!</span> (انظر!)، <span style="color:var(--accent-green)">Listen!</span> (استمع!).</p>
+
+            <h4>أمثلة محلولة ومترجمة:</h4>
+            <div class="example-item">
+                <div class="example-en">
+                    <span>1. Look! He <b>is writing</b> on the board.</span>
+                    <button class="audio-btn" onclick="speak('Look! He is writing on the board.')">🔊 استمع</button>
+                </div>
+                <div class="example-ar">انظر! إنه يكتب على السبورة الآن. (حدث يقع أمامنا في هذه اللحظة)</div>
+            </div>
+
+            <div class="example-item">
+                <div class="example-en">
+                    <span>2. We <b>are studying</b> English at the moment.</span>
+                    <button class="audio-btn" onclick="speak('We are studying English at the moment.')">🔊 استمع</button>
+                </div>
+                <div class="example-ar">نحن ندرس اللغة الإنكليزية في هذه اللحظة.</div>
+            </div>
+
+            <div class="tip-box">
+                <b>📌 سر الفرق بين الزمنين بالامتحان:</b><br>
+                • إذا وجدت (usually / always / every) 👈 اختر مضارع بسيط (فعل مجرد أو فيه s).<br>
+                • إذا وجدت (now / at the moment / Look!) 👈 اختر مضارع مستمر (is/are/am + ing).
+            </div>
+        </div>
+
+        <!-- RULE 3 -->
+        <div class="grammar-block">
+            <h3>3. الأسئلة غير المباشرة (Indirect Questions)</h3>
+            <p><b>ما معنى السؤال غير المباشر؟</b> هو طريقة مؤدبة ولطيفة جداً للطلب أو السؤال بدلاً من السؤال المباشر المفاجئ.</p>
+
+            <div class="highlight-box">
+                <b>مثال بالعربي:</b> بدلاً من أن تقول للغريب: "أين المكتبة؟"، تقول له بـأدب: "هل يمكنك أن تخبرني أين المكتبة؟".
+            </div>
+
+            <h4>عبارة البداية الثابتة (تحفظ غيباً):</h4>
+            <div class="formula-box">
+                Could you tell me ...? (هل يمكنك أن تخبرني...؟)
+            </div>
+
+            <h4>خطوات التحويل بالتفصيل:</h4>
+            <p><b>حالة أ: إذا كان السؤال يبدأ بأداة استفهام (Where / What / How):</b></p>
+            <p>نضع العبارة المؤدبة + أداة الاستفهام + **الفاعل أولاً ثم الفعل المساعد**. (نعكس موقع الفاعل والفعل ليكون سؤالاً مؤدباً).</p>
+            
+            <div class="example-item">
+                <div class="example-en">
+                    <span>Direct: Where <u>is</u> <b>the library</b>?</span>
+                </div>
+                <div class="example-en" style="margin-top:6px;">
+                    <span>Indirect: Could you tell me where <b>the library</b> <u>is</u>?</span>
+                    <button class="audio-btn" onclick="speak('Could you tell me where the library is?')">🔊 استمع</button>
+                </div>
+                <div class="example-ar">تلاحظ أننا قدمنا الفاعل (the library) على الفعل (is) في السؤال غير المباشر.</div>
+            </div>
+
+            <p style="margin-top:15px;"><b>حالة ب: إذا كان السؤال يبدأ بفعل مساعد (Do / Does / Is / Can) [سؤال نعم/لا]:</b></p>
+            <p>نضع العبارة المؤدبة + كلمة **if** (فيما إذا) + **الفاعل ثم الفعل**. (ونحذف do/does إن وجدت).</p>
+
+            <div class="example-item">
+                <div class="example-en">
+                    <span>Direct: Do you have a self-access centre?</span>
+                </div>
+                <div class="example-en" style="margin-top:6px;">
+                    <span>Indirect: Could you tell me <b>if</b> you have a self-access centre?</span>
+                    <button class="audio-btn" onclick="speak('Could you tell me if you have a self access centre?')">🔊 استمع</button>
+                </div>
+                <div class="example-ar">استخدمنا (if) لأن السؤال المباشر لم يسبق بأداة استفهام مثل where أو what.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TAB 2: VOCABULARY -->
+    <div id="vocab" class="tab-content">
+        <div class="section-card">
+            <h2 class="section-title">Unit 1 - Lesson 1: Learning Languages (مفردات الدرس الأول)</h2>
+            <div class="vocab-grid">
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Interpreter</span>
+                        <button class="audio-btn" onclick="speak('Interpreter')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">مترجم شفهي (يقوم بالترجمة الفورية)</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Self-access centre</span>
+                        <button class="audio-btn" onclick="speak('Self-access centre')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">مركز التعلم الذاتي (غرفة مجهزة للتعلم)</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Learning diary</span>
+                        <button class="audio-btn" onclick="speak('Learning diary')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">مذكرة التعلم (دفتر يكتب فيه الطالب ما تعلمه)</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Flashcards</span>
+                        <button class="audio-btn" onclick="speak('Flashcards')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">بطاقات استذكار تعليمية</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Language index</span>
+                        <button class="audio-btn" onclick="speak('Language index')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">فهرس أو دليل اللغة</div>
+                </div>
+
+                <div class="vocab-card">
+                    <div class="vocab-header">
+                        <span class="vocab-en">Borrow</span>
+                        <button class="audio-btn" onclick="speak('Borrow')">🔊 استمع</button>
+                    </div>
+                    <div class="vocab-ar">يستعير / يستقرض</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: QUIZ -->
+    <div id="quiz" class="tab-content">
+        <div class="section-card">
+            <h2 class="section-title">اختبار شامل للوحدة الأولى (10 أسئلة)</h2>
+            <form id="quizForm">
+                
+                <div class="quiz-question">
+                    <p>1. Look! The teacher ________ on the board right now.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q1" value="a"> writes</label>
+                        <label class="option-label"><input type="radio" name="q1" value="b"> is writing</label>
+                        <label class="option-label"><input type="radio" name="q1" value="c"> wrote</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>2. An interpreter ________ spoken words from one language to another.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q2" value="a"> translates</label>
+                        <label class="option-label"><input type="radio" name="q2" value="b"> is translating</label>
+                        <label class="option-label"><input type="radio" name="q2" value="c"> translate</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>3. Could you tell me where ________ ?</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q3" value="a"> is the library</label>
+                        <label class="option-label"><input type="radio" name="q3" value="b"> the library is</label>
+                        <label class="option-label"><input type="radio" name="q3" value="c"> the library was</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>4. You can practice listening in the ________ centre.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q4" value="a"> self-access</label>
+                        <label class="option-label"><input type="radio" name="q4" value="b"> flashcards</label>
+                        <label class="option-label"><input type="radio" name="q4" value="c"> diary</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>5. How many languages ________ she speak?</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q5" value="a"> is</label>
+                        <label class="option-label"><input type="radio" name="q5" value="b"> does</label>
+                        <label class="option-label"><input type="radio" name="q5" value="c"> do</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>6. I usually ________ to school on foot, but today I am taking the bus.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q6" value="a"> go</label>
+                        <label class="option-label"><input type="radio" name="q6" value="b"> am going</label>
+                        <label class="option-label"><input type="radio" name="q6" value="c"> went</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>7. A ________ diary helps you record your learning progress.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q7" value="a"> learning</label>
+                        <label class="option-label"><input type="radio" name="q7" value="b"> shopping</label>
+                        <label class="option-label"><input type="radio" name="q7" value="c"> secret</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>8. Could you tell me ________ you have a self-access centre?</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q8" value="a"> if</label>
+                        <label class="option-label"><input type="radio" name="q8" value="b"> that</label>
+                        <label class="option-label"><input type="radio" name="q8" value="c"> what</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>9. They ________ English at the moment.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q9" value="a"> study</label>
+                        <label class="option-label"><input type="radio" name="q9" value="b"> are studying</label>
+                        <label class="option-label"><input type="radio" name="q9" value="c"> studies</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>10. You can ________ books from the school library.</p>
+                    <div class="options-list">
+                        <label class="option-label"><input type="radio" name="q10" value="a"> borrow</label>
+                        <label class="option-label"><input type="radio" name="q10" value="b"> lend</label>
+                        <label class="option-label"><input type="radio" name="q10" value="c"> sell</label>
+                    </div>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="calculateScore()">إنهاء الاختبار وعرض النتيجة</button>
+            </form>
+
+            <div id="resultCard" class="result-card">
+                <h3>نتيجة الاختبار</h3>
+                <div class="score-display" id="scoreValue">0/10</div>
+                <p id="scoreFeedback" style="color: var(--text-muted); font-size: 1.1rem;"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab Switcher
+    function switchTab(evt, tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    // Text to Speech Engine
+    let synth = window.speechSynthesis;
+    let voices = [];
+
+    function populateVoices() {
+        voices = synth.getVoices().filter(voice => voice.lang.includes('en'));
+    }
+
+    populateVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoices;
+    }
+
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            synth.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            let selectedVoice = voices.find(v => v.name.includes('Google') || v.name.includes('Natural')) || voices[0];
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85;
+            utterance.pitch = 1.0;
+
+            synth.speak(utterance);
+        } else {
+            alert('خاصية النطق غير مدعومة في متصفحك.');
+        }
+    }
+
+    // Quiz Score Calculation
+    function calculateScore() {
+        const answers = {
+            q1: 'b', q2: 'a', q3: 'b', q4: 'a', q5: 'b',
+            q6: 'a', q7: 'a', q8: 'a', q9: 'b', q10: 'a'
+        };
+
+        let score = 0;
+        const total = 10;
+        const form = document.forms['quizForm'];
+
+        for (let i = 1; i <= total; i++) {
+            const qValue = form['q' + i].value;
+            if (qValue === answers['q' + i]) {
+                score++;
+            }
+        }
+
+        const resultCard = document.getElementById('resultCard');
+        const scoreValue = document.getElementById('scoreValue');
+        const scoreFeedback = document.getElementById('scoreFeedback');
+
+        resultCard.style.display = 'block';
+        scoreValue.innerText = `${score} / ${total}`;
+
+        if (score === 10) {
+            scoreFeedback.innerText = 'ممتاز جداً! إجاباتك كاملة وصحيحة 100% 🎯';
+            scoreFeedback.style.color = 'var(--accent-green)';
+        } else if (score >= 7) {
+            scoreFeedback.innerText = 'أداء جيد جداً! يمكنك مراجعة القواعد القليلة المتبقية 👍';
+            scoreFeedback.style.color = 'var(--accent-blue)';
+        } else {
+            scoreFeedback.innerText = 'يحتاج إلى مراجعة. أعد قراءة قسم القواعد والمفردات ثم حاول مجدداً! 💡';
+            scoreFeedback.style.color = 'var(--accent-red)';
+        }
+
+        resultCard.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
