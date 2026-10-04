@@ -648,6 +648,41 @@
         resultCard.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
+        // Improved Text to Speech Engine (Selects Natural English Voices)
+    let synth = window.speechSynthesis;
+    let voices = [];
+
+    function populateVoices() {
+        voices = synth.getVoices().filter(voice => voice.lang.includes('en'));
+    }
+
+    populateVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoices;
+    }
+
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            synth.cancel(); // Stop any previous playback
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            // Try to find Google or Natural high quality English voice
+            let selectedVoice = voices.find(v => v.name.includes('Google') || v.name.includes('Natural')) || voices[0];
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85; // Slightly slower for clarity
+            utterance.pitch = 1.0;
+
+            synth.speak(utterance);
+        } else {
+            alert('خاصية النطق غير مدعومة في متصفحك.');
+        }
+    }
+
 
 </body>
 </html>
